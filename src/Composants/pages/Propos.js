@@ -1,72 +1,96 @@
-import React from 'react'
+import { Grid } from '@material-ui/core'
+import React, {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
+import styled from 'styled-components'
+import {about} from '../data/About'
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Imge from "../images/persn.png"
-import { Card } from '@material-ui/core';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Image from '../images/docteur.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    textAlign: 'center',
-    backgroundColor : 'blue',
-    margin : '0',
-    color : '#fff'
-
+    flexGrow: 1,
+    padding : '30px 20px',
+    background: '#202020'
   },
   paper: {
     padding: theme.spacing(2),
-    margin: 'auto ',
-    maxWidth: "75%",
-  },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
   },
 }));
 
+  
 
 
+const Box = styled.div`
+  min-height: 287px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+            0 3px 1px -2px rgba(0,0,0,0.12),
+            0 1px 5px 0 rgba(0,0,0,0.2);
+  padding: 3% 2%;
+  margin-right: 3%;
+  margin-bottom: 3%;
+  width: 50%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.5s ease-out;
+  :hover {
+    box-shadow:  0 8px 17px 2px rgba(0,0,0,0.14),
+            0 3px 14px 2px rgba(0,0,0,0.12),
+            0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.5s;
+  }
+  :last-of-type{
+    margin-right: 0;
+  }
+  a{
+    margin-top: auto;
+    color: #7fa1e8;
+    text-decoration: none;
+  }
+  @media (max-width: 700px) {
+    width: 100%;
+    min-height: auto;
+    padding: 5%;
+  }
+`
 
 const Propos = () => {
     const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-        <h1>A PROPOS DE NOUS</h1>
-      <Card className={classes.paper}>
-        <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="" src={Imge} />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography variant="body2" gutterBottom>
-                When I was 12, I set the all-time high record at my local laser tag facility by reverse engineering the charging station and weapon protocols with a photo-resistor, micro-cassette recorder, and a lot of patience. I was unstoppable.
-
-- At 13, I went to space camp and fell in love. I went back two more times and promised myself that I'd work in space. I've since helped build three generations of satellites and have contributed to two more.
-
-- At 14, I was almost expelled for finding a backdoor into my high school's file server and telling everyone but the faculty members about it. Later that year, I figured out how to turn off the internet firewall by editing system registry keys. I anonymously shared my work months later.
-
-- At 16, I participated in a foreign exchange program in Dortmund, Germany. Since then, I've gone back almost every year.
-                </Typography>
-              </Grid>
-              
-            </Grid>
-          </Grid>
+    const [state, setState] = useState([])
+    useEffect(() => {
+        setState(about)
+    }, [])
+    return (
+        <div className={classes.root}>
+            <h1>A propos de nous</h1>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={4}>
+          <LazyLoadImage src={Image} alt="docteur" style={{maxWidth : '400px' , height: 400}} />
         </Grid>
-      </Card>
+        <Grid item xs={12} sm={5}>
+        <Box>
+        {state.map((info) => {
+            return (
+                <>
+                    <h3>{info.title}</h3>
+                    <p> {info.description}</p>
+                    <Link
+                        to={info.path}>
+                        Read more
+                    </Link>
+                </>
+                )
+            })}
+        </Box>
+        </Grid>
+      </Grid>
     </div>
-  );
+    )
 }
 
 export default Propos

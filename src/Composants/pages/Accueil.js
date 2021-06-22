@@ -1,23 +1,23 @@
-import React, { Fragment } from 'react';
-import Landing from './Comps/Landing';
-import Services from "../pages/Services";
-import Chambres from "./Comps/Chambres";
-import Propos from './Propos';
-import Testimonials from './Comps/Testimonials';
-import Contact from './Contact'
+import React from 'react'
+import { Fragment } from 'react'
+import Caroussel from '../comp/Caroussel'
+import { SliderData } from '../data/SliderData'
+import Service from './Service'
+import Testimonial from '../comp/Testimonial'
+import Equipe from '../comp/Equipe'
+import Propos from './Propos'
 
 
 const Accueil = () => {
     return (
         <Fragment>
-            <Landing/>
-            <Services />
-            <Chambres />
-            <Propos /> 
-            <Testimonials />
-            <Contact />
+            <Caroussel slides={SliderData} />
+            <Service/>
+            <Testimonial/>
+            <Equipe />
+            <Propos />
         </Fragment>
     )
 }
 
-export default Accueil;
+export default Accueil

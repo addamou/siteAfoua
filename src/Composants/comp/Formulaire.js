@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Button, TextField } from '@material-ui/core';
+import styled from 'styled-components'
+import axios from 'axios'
 
-  
+const Forme = styled.div `
+  margin-bottom : 10px;
+  background : #fff
+`  
   const Formulaires = () => {
     
     
     const data = {
-        identite : '',
+        name : '',
         mobile : '',
         motif: '',
         message: ''
@@ -14,7 +21,8 @@ import { Button, TextField } from '@material-ui/core';
     
       const [contact, setContact] = useState(data);
     
-      const { identite, mobile, motif, message } = contact;
+      const { name, mobile, motif, message } = contact;
+      
     
       const handleChange= event => {
         setContact({
@@ -23,25 +31,35 @@ import { Button, TextField } from '@material-ui/core';
         });
     };
     
-    const submit = e => {
+    const submit = async (e) => {
       e.preventDefault();
-      
-      console.log(contact)
+
+      try {  
+        await axios.post("http://localhost:5000/api/contact/", contact );
+        toast.success("Message envoyé avec succés", { position: toast.POSITION.TOP_RIGHT });
+        
+    } catch (err) {
+        toast.error("Message non envoyé, réessayez encore !", { position: toast.POSITION.TOP_RIGHT });
+    }
+
+     setContact(data)
     };
     return (
-        <form onSubmit={submit} className ="form">
+        <form onSubmit={submit} className ="form" autoComplete="off">
+          <ToastContainer />
             <h2>Formulaire</h2>
-            <div className="divInput">
+            <Forme>
                 <TextField
-                  id="identite"
-                  label="Identités"
-                  value={identite}
+                  id="name"
+                  label="Nom et prenom"
+                  value={name}
                   onChange={handleChange}
-                  variant="outlined"
+                  variant="outlined" 
                   required
+                  fullWidth
                 />
-            </div>
-            <div className="divInput">
+            </Forme>
+            <Forme>
                <TextField
                  id="mobile"
                  label="Numéro de Téléphone"
@@ -49,19 +67,21 @@ import { Button, TextField } from '@material-ui/core';
                  onChange={handleChange}
                  variant="outlined"
                  required
+                 fullWidth
                />
-            </div>
-            <div className="divInput">
+            </Forme>
+            <Forme>
                 <TextField
                   id="motif"
                   label="Motifs"
                   value={motif}
                   onChange={handleChange}
                   variant="outlined"
+                  fullWidth
                 />
-            </div>
+            </Forme>
             
-            <div className="divInput">
+            <Forme>
                 <TextField
                   id="message"
                   label="Rédiger votre message..."
@@ -69,11 +89,12 @@ import { Button, TextField } from '@material-ui/core';
                   onChange={handleChange}
                   rows={4}
                   variant="outlined"
+                  fullWidth
                 />
-            </div>
-            <div className="divInput">
-            <Button variant="outlined" color="primary" type= "submit">ENVOYER</Button>
-            </div>
+            </Forme>
+            <Forme>
+            <Button variant="outlined" color="primary" type= "submit" fullWidth >ENVOYER</Button>
+            </Forme>
         </form>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, ListItemAvatar, Avatar, ListItemText, ListItem, 
   Divider, List} from '@material-ui/core'
-import Formulaires from './Comps/Formulaires';
+import Formulaires from '../comp/Formulaire';
 import { FaBuilding, FaMapMarkerAlt, FaTty, FaEnvelopeOpenText, FaAndroid } from 'react-icons/fa';
 
 
@@ -11,9 +11,9 @@ import { FaBuilding, FaMapMarkerAlt, FaTty, FaEnvelopeOpenText, FaAndroid } from
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    padding: 20,
+    padding: '30px 10px',
     margin : 0,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   paper: {
     padding: theme.spacing(2),
@@ -27,7 +27,7 @@ const Contact = () => {
   
  
   return (
-    <div style={{margin:0}}>
+    <div style={{margin:0, padding: '30px 0'}}>
       <Container className={classes.root}>
         <h1 className="titre">CONTACTER NOUS</h1>
       <Grid container spacing={1} justify="center">
