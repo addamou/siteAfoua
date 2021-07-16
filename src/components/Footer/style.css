@@ -1,0 +1,22 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  background-color: #ff4501e8;
+}
+
+.socials {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+.liens {
+  text-decoration: none;
+  margin: 0 10px;
+  color: #fff;
+  cursor: pointer;
+  transform: translateX(-3) 2s;
+}
+ /**
+ background: linear-gradient(160deg, rgb(122, 56, 255) 0%, rgb(255, 83, 4) 100%);
+ **/
